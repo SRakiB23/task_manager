@@ -1,21 +1,26 @@
-{% include 'base.html' %}
+{% load static %}
 
-<h1>This is homepage</h1>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{%static 'css/styles.css' %}" />
+  </head>
 
-{% for cl in client %}
+  {% include 'base.html' %}
 
-<p> {{cl.id}} </p>
+  <h1>This is homepage</h1>
 
-<br>
+  <a href="{%url 'create-task' %}">Register a User</a>
+  <br />
+  <br />
+  <br />
+  <br />
 
-<p> {{cl.name}} </p>
+  <a href="{%url 'create-task' %}">Create a Task</a>
+  <br />
+  <br />
 
-<br>
+  <a href="{%url 'view-tasks' %}">View Task</a>
 
-<p> {{cl.profession}} </p>
+  <script src="{%static 'js/app.js' %}"></script>
 
-<br>
-
-
-
-{% endfor %}
+</html>
