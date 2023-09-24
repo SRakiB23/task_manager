@@ -4,23 +4,34 @@ from . import views
 
 urlpatterns = [
 
-    path('register', views.register),
 
-    path('my-login', views.my_login),
+#----------------------HomePage------------------------
 
-    path('', views.home),
+path('', views.home, name=""),
 
-    #- CRUD operations
 
-    #-CREATE TASK
-    path('create-task', views.createTask, name='create-task'),
+#----------------------Dashboard------------------------
+##----------------------------------------------------------## 
 
-    #-READ TASK
-    path('view-task', views.viewTasks, name='view-tasks'),
+path('dashboard', views.dashboard, name='dashboard'),    
 
-    #-UPDATE TASK
-    path('update-task/<str:pk>/', views.updateTask, name='update-task'),
 
-    #-DELETE TASK
-    path('delete-task/<str:pk>/', views.deleteTask, name='delete-task'),
+
+#---------------------- Registration------------------------
+##----------------------------------------------------------## 
+
+path('register', views.register, name='register'),
+
+
+#----------------------Login------------------------
+##----------------------------------------------------------## 
+
+path('my-login', views.my_login, name='my-login'),
+
+
+#----------------------Logout------------------------
+##----------------------------------------------------------##
+
+path('user-logout', views.user_logout, name='user-logout'),
+
 ]

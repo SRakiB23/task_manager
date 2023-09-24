@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse, redirect
 
-from .models import Task
-from .forms import TaskForm
+from .forms import CreateUserForm, LoginForm
+from django.contrib.auth.models import auth
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -10,62 +12,51 @@ def home(request):
 
     return render(request, 'index.html')
 
+
+##--------Registration------------##
+
 def register(request):
-    return render(request, 'register.html')
+    form = CreateUserForm()
+
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponse("User registration successful!")
+
+    context = {'form': form}
+    return render(request, 'register.html', context=context)   
+
+
+##--------Login------------##
 
 def my_login(request):
-    return render(request, 'my_login.html')
-
-def createTask(request):
-    form = TaskForm()
-
+    form = LoginForm
     if request.method == 'POST':
-        form = TaskForm(request.POST)
+        form = LoginForm(request, data=request.POST)
 
         if form.is_valid():
-            form.save()
+            username = request.POST.get('username')
+            password = request.POST.get('password')
 
-            return redirect('view-tasks')
-        
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                auth.login(request, user)
+                return redirect("dashboard")
+            
     context = {'form': form}
-    return render(request, 'create-task.html', context=context)
+    return render(request,'my-login.html', context=context)
 
 
-#-Read a task
-def viewTasks(request):
+##--------Dashboard------------##
+@login_required(login_url='my-login')
+def dashboard(request):
+    return render(request,'dashboard.html')
 
-    tasks = Task.objects.all()
+##--------Logout------------##
 
-    context = {'tasks': tasks}
-    return render(request, 'view-tasks.html', context=context)
-
-
-#- Update a task
-def updateTask(request, pk):
-
-    task = Task.objects.get(id=pk)
-    form = TaskForm(instance=task)
-
-    if request.method == 'POST':
-        form = TaskForm(request.POST, instance=task)
-
-        if form.is_valid():
-            form.save()
-            return redirect('view-tasks')
-    
-    context = {'form': form}
-    return render(request, 'update-task.html', context=context)
-
-
-#- Delete a task
-def deleteTask(request, pk):
-
-    task = Task.objects.get(id=pk)
-
-    if request.method == 'POST':
-        task.delete()
-
-        return redirect('view-tasks')
-    context = {'object': task}
-    
-    return render(request, 'delete-task.html', context=context)
+def user_logout(request):
+    auth.logout(request)
+    return redirect("")
