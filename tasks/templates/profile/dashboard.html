@@ -22,18 +22,16 @@
 
     <title>TaskRemedy</title>
   </head>
+
   {% include 'base.html' %}
 
   <div class="container bg-white shadow-md p-5 form-layout"
-    style="margin-top: 5px; border-radius: 20px; width: 500px;">
-    <h1>This is the Dashboard</h1>
+    style="margin-top: 20px; border-radius: 20px; width: 500px;">
 
-    <a href="{%url 'create-task' %}">Create Task </a>
-      <br> <br>
 
-      <a href="{%url 'view-tasks' %}">View Tasks </a>
-      <br> <br>
+    <h2 style="text-align: center; color: rgb(0, 0, 0);">TaskRemedy</h1>
+      <hr>
+  <p style="color: rgb(57, 42, 14);">Welcome, to TaskRemedy <br> <br>Your personal task manager application!</p>
 
-    <a href="{%url 'user-logout' %}">Logout</a>
   </div>
 </html>

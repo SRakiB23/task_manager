@@ -22,12 +22,13 @@
   </head>
   {% include 'base.html' %}
 
-    <h1 class="text-center" style="color: white;">My Tasks</h1>
+    <h2 class="text-center" style="color: white; margin-top: 10px;">
+      View Tasks</h2>
     <hr>
 
     {% for tsk in task %}
     <div class="container bg-white shadow-md p-5 form-layout"
-    style="margin-top: 10px; border-radius: 30px; width: 500px; box-shadow: 2px; color: black;">
+    style="margin-top: 20px; border-radius: 30px; width: 500px; box-shadow: 2px; color: black;">
 
     {{tsk.title}}
     <br /><br />
@@ -36,10 +37,24 @@
     {{tsk.priority}}
     <br /><br />
 
-    <a href="{%url 'update-task' tsk.id %} ">Update Tasks </a>
+      <a
+        class="btn btn-info navbar-btn"
+        type="button"
+        href="{% url 'update-task' tsk.id %}"
+        >Update Task</a
+      >
+
+    &nbsp; &nbsp; &nbsp;
     <br><br>
 
-    <a href="{%url 'delete-task' tsk.id %}">Delete Tasks </a>
+      <a
+        class="btn btn-danger navbar-btn"
+        type="button"
+        href="{% url 'delete-task' tsk.id %}"
+        >Delete Task</a
+      >
+
+    &nbsp; &nbsp; &nbsp;
 
 
     </div>
