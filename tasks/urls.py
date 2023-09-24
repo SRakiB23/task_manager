@@ -15,6 +15,31 @@ path('', views.home, name=""),
 
 path('dashboard', views.dashboard, name='dashboard'),    
 
+#----------------------Create a Task------------------------
+##----------------------------------------------------------## 
+
+path('create-task', views.createTask, name='create-task'),
+
+#----------------------READ Task------------------------
+##----------------------------------------------------------## 
+
+path('view-tasks', views.viewTask, name='view-tasks'),
+
+#----------------------UPDATE Task------------------------
+##----------------------------------------------------------## 
+
+path('update-task/<str:pk>/', views.updateTask, name='update-task'),
+
+#----------------------DELETE Task------------------------
+##----------------------------------------------------------##
+
+path('delete-task/<str:pk>/', views.deleteTask, name='delete-task'),
+
+
+
+
+
+
 
 
 #---------------------- Registration------------------------
